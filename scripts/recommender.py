@@ -1,13 +1,27 @@
+"""
+Mutual-fund recommendation module.
+
+This script ranks mutual funds based on risk-adjusted
+performance metrics and generates recommendations.
+"""
+
+
 import pandas as pd
 import os
+from pathlib import Path
+
 
 
 # ============================================================
-# 1. FILE PATHS
+# 1. PATHS
 # ============================================================
 
-FUND_MASTER_PATH = "/content/Cleaned_01_data_fund_master.csv"
-PERFORMANCE_PATH = "/content/Cleaned_07_scheme_performance (1) (1).csv"
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+PROCESSED_DIR = BASE_DIR / "data" / "processed"
+
+FUND_MASTER_PATH = PROCESSED_DIR / "Cleaned_01_data_fund_master.csv"
+PERFORMANCE_PATH = PROCESSED_DIR / "Cleaned_07_scheme_performance (1) (1).csv"
 
 
 # ============================================================
@@ -16,13 +30,8 @@ PERFORMANCE_PATH = "/content/Cleaned_07_scheme_performance (1) (1).csv"
 
 def load_data():
 
-    print("Loading mutual fund data...")
-
     fund_master = pd.read_csv(FUND_MASTER_PATH)
     performance = pd.read_csv(PERFORMANCE_PATH)
-
-    print(f"Fund Master: {len(fund_master)} records")
-    print(f"Performance: {len(performance)} records")
 
     return fund_master, performance
 
@@ -71,7 +80,7 @@ def normalize(series):
 
 def calculate_score(df):
 
-    print("\nCalculating fund scores...")
+   
 
     # Make sure numerical columns are numeric
     numeric_columns = [
@@ -187,9 +196,6 @@ def filter_by_risk(df, risk_profile):
 
     else:
 
-        print("Invalid risk profile.")
-        print("Choose: low / moderate / high")
-
         return pd.DataFrame()
 
     return filtered
@@ -207,10 +213,6 @@ def recommend_funds(df, risk_profile, top_n=5):
     )
 
     if filtered_df.empty:
-
-        print(
-            "\nNo funds found for this risk profile."
-        )
 
         return filtered_df
 
@@ -234,12 +236,6 @@ def display_recommendations(recommendations):
     if recommendations.empty:
         return
 
-    print("\n" + "=" * 80)
-
-    print("              TOP MUTUAL FUND RECOMMENDATIONS")
-
-    print("=" * 80)
-
     columns_to_show = [
         "scheme_name",
         "category",
@@ -261,13 +257,7 @@ def display_recommendations(recommendations):
 
     result = recommendations[available_columns].copy()
 
-    print(
-        result.to_string(
-            index=False
-        )
-    )
-
-    print("=" * 80)
+    
 
 
 # ============================================================
@@ -296,11 +286,7 @@ def save_recommendations(
         index=False
     )
 
-    print(
-        f"\nRecommendations saved to:"
-    )
-
-    print(output_file)
+    
 
 
 # ============================================================
@@ -321,13 +307,7 @@ def main():
     # Calculate score
     df = calculate_score(df)
 
-    # Ask user risk profile
-    print("\nChoose your risk profile:")
-
-    print("1. Low")
-    print("2. Moderate")
-    print("3. High")
-
+    
     choice = input(
         "\nEnter your choice (1/2/3): "
     )
@@ -346,7 +326,7 @@ def main():
 
     else:
 
-        print("\nInvalid choice.")
+        
 
         return
 

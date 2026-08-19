@@ -1,3 +1,11 @@
+"""
+Live NAV fetching module.
+
+This script fetches latest mutual-fund NAV data and saves it
+to the processed data directory.
+"""
+
+
 import pandas as pd
 import requests
 import os
@@ -23,7 +31,7 @@ nav_data = data["data"]
 df = pd.DataFrame(nav_data)
 
 
-print(df.head())
+
 
 
 df.to_csv(
@@ -31,4 +39,3 @@ df.to_csv(
     index=False
 )
 
-print("NAV data saved successfully")

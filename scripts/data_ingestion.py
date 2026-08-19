@@ -1,3 +1,10 @@
+"""
+Data ingestion module for the Mutual Fund Analytics project.
+
+This script loads and validates raw mutual-fund datasets.
+"""
+
+
 import pandas as pd
 import os
 
@@ -13,34 +20,21 @@ csv_files = [
 ]
 
 
-print("Total CSV Files Found:", len(csv_files))
 
-
-print("Total CSV Files Found:", len(csv_files))
 
 
 
 for file in csv_files:
-    print("\n==============================")
-    print("FILE NAME:", file)
-    print("==============================")
-
     file_path = os.path.join(DATA_PATH, file)
 
     df = pd.read_csv(file_path)
 
-    
-    print("\nShape:")
-    print(df.shape)
 
-    
-    print("\nData Types:")
-    print(df.dtypes)
+def main():
+    """Run the data ingestion pipeline."""
+    # Yahan apna existing ingestion code/function call karo.
+    pass
 
-    
-    print("\nFirst 5 Rows:")
-    print(df.head())
 
-    
-    print("\nMissing Values:")
-    print(df.isnull().sum())
+if __name__ == "__main__":
+    main()
