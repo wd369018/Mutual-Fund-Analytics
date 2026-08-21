@@ -1,0 +1,1 @@
+from scripts.data_ingestion import main
