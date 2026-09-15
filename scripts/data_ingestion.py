@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Data ingestion and ETL module for the Mutual Fund Analytics project.
 
@@ -1076,5 +1075,3 @@ if __name__ == "__main__":
     )
 
     main()
-=======
->>>>>>> 78ee753 (Delete scripts/data_ingestion.py)
